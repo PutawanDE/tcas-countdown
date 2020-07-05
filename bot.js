@@ -59,7 +59,6 @@ T.post(
   "statuses/update",
   {
     status:
-      "// TEST" +
       // countdown(gat) +
       countdown(onet) +
       // countdown(med) +
