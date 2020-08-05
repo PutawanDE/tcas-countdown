@@ -23,13 +23,13 @@ function hourOffset(hour) {
 
 //Set the date to which you want to count down to here!
 
-// // GAT-PAT DATE 22-02-2020
-// const gat = {
-//   name: "GAT-PAT 63",
-//   year: 2020,
-//   month: 1,
-//   day: 22
-// };
+// GAT-PAT DATE 27-03-2021
+const gat = {
+  name: "GAT-PAT 64",
+  year: 2021,
+  month: 3,
+  day: 20
+};
 
 // O-NET DATE 27-03-2021
 const onet = {
@@ -47,22 +47,22 @@ const onet = {
 //   day: 7
 // };
 
-// // 9 Subjects DATE 14-03-2020
-// const _9subjects = {
-//   name: "9 วิชาสามัญ 63",
-//   year: 2020,
-//   month: 2,
-//   day: 14
-// };
+// 9 Subjects DATE 3-04-2021
+const _9subjects = {
+  name: "9 วิชาสามัญ 64",
+  year: 2021,
+  month: 4,
+  day: 3
+};
 
 T.post(
   "statuses/update",
   {
     status:
-      // countdown(gat) +
+      countdown(gat) +
       countdown(onet) +
       // countdown(med) +
-      // countdown(_9subjects) +
+      countdown(_9subjects) +
       "#dek64 " +
       "#TCAS64",
   },
