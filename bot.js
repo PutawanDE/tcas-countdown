@@ -55,10 +55,35 @@ const _9subjects = {
   day: 3
 };
 
+const quotes = [
+  "ไม่เคยมีคำว่าสายเกินไปที่จะเป็นในสิ่งที่คุณอยากจะเป็น",
+  "ความสำเร็จของปีนี้ คือ สิ่งที่เป็นไปไม่ได้ในปีที่ผ่านมา",
+  "เส้นบางๆ ที่คั่นระหว่างความเป็นไปได้และความเป็นไปไม่ได้คือการตัดสินใจของเรา",
+  "การลงมือทำดีกว่าคำ พูดที่สวยหรู",
+  "ทำวันนี้ให้ดีที่สุด แล้วชีวิตคุณจะไม่ธรรมดา",
+  "ลืมอดีตของคุณไป ให้อภัยกับตัวเอง และเริ่มต้นใหม่อีกครั้ง",
+  "อย่าสูญสิ้นความสิ้นหวัง คุณไม่อาจรู้ได้ว่าพรุ่งนี้ จะเกิดอะไรขึ้นบ้าง",
+  "รู้ว่าเสี่ยง แต่คงต้องขอลอง",
+  "รู้ว่าเหนื่อย ถ้าอยากได้ของที่อยู่สูง ยังไงจะขอลองดูสักที",
+  "ไม่ต้องอ่านเยอะครับ แต่อ่านให้มีประสิทธิภาพ",
+  "per aspera ad astra",
+  "ไม่มีใครเข้มแข็งตลอดไปและไม่มีใครอ่อนแอตลอดกาล",
+  "ไม่มีใครสะดุดภูเขาล้ม มีแต่สะดุดก้อนหินล้ม",
+  "ตึกสูงระฟ้ามาจากก้อนอิฐ",
+  "เหนื่อยก็พัก ด้วยรักและห่วงใย",
+  "ไม่ว่าจะสูงแค่ไหนก็ไปถึง",
+  "หากคุณเชื่อมั่นว่าคุณสามารถทำได้ นั่นเท่ากับว่าคุณได้ทำสำเร็จไปครึ่งหนึ่งแล้ว",
+  "ท้อได้ ถอยได้ แต่ต้องถอยออกมาเพื่อที่จะก้าวให้ไกลกว่าเดิม",
+  "ตะโกนให้สุดเสียง ร้องไห้ให้พอ แต่อย่ายอมแพ้",
+  "มันดูเหมือนเป็นไปไม่ได้เสมอจนกระทั่งมันสำเร็จ"
+];
+
 T.post(
   "statuses/update",
   {
     status:
+      randomQuote(quotes) +
+      "\n" +
       countdown(gat) +
       countdown(onet) +
       // countdown(med) +
@@ -75,6 +100,7 @@ T.post(
   }
 );
 
+/* Returns the countdown message to be tweeted */
 function countdown(exam) {
   //Create date, subtract 1 from month since js month starts from 0
   const date = new Date(
@@ -87,11 +113,11 @@ function countdown(exam) {
   // Create duration
   const diffDuration = moment.duration(diffTime, "milliseconds");
 
-  // Calculate days left and tweet
+  // Calculate days left and create tweet message
   return countdownTweet(diffTime, diffDuration, exam.name);
 }
 
-/* Returns the message to send as our status update */
+/*Calculate the time left (countdown), create tweet message and return*/
 function countdownTweet(diffTime, diffDuration, examName) {
   var status = "";
 
@@ -110,13 +136,6 @@ function countdownTweet(diffTime, diffDuration, examName) {
   // Calculate days left and return
   if (diffTime > 0) {
     if (diffDuration.asDays() > 1) {
-      // Days and Months format
-      // let months = Math.trunc(diffDuration.asDays() / 30);
-      // let days = Math.trunc(diffDuration.asDays() % 30);
-      // if(months >= 1) {
-      //   status += `${months} เดือน`;
-      // }
-
       // Days format
       let days = Math.trunc(diffDuration.asDays());
       if (days >= 1) {
@@ -129,4 +148,10 @@ function countdownTweet(diffTime, diffDuration, examName) {
   if (status != "") {
     return status;
   }
+}
+
+/* Returns the randomly selected quote to be tweeted */
+function randomQuote(quotes) {
+  let r = Math.floor(Math.random() * quotes.length);
+  return "\"" +  quotes[r] + "\"" + "\n";
 }
