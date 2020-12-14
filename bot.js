@@ -39,13 +39,13 @@ const onet = {
   day: 27,
 };
 
-// // Med กสพท. DATE 7-03-2020
-// const med = {
-//   name: "กสพท 63",
-//   year: 2020,
-//   month: 2,
-//   day: 7
-// };
+// Med กสพท. DATE 10-04-2021
+const med = {
+  name: "กสพท 64",
+  year: 2021,
+  month: 4,
+  day: 10
+};
 
 // 9 Subjects DATE 3-04-2021
 const _9subjects = {
@@ -82,11 +82,12 @@ T.post(
   "statuses/update",
   {
     status:
+      // "//Test\n" +
       randomQuote(quotes) +
       "\n" +
       countdown(gat) +
       countdown(onet) +
-      // countdown(med) +
+      countdown(med) +
       countdown(_9subjects) +
       "#dek64 " +
       "#TCAS64",
