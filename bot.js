@@ -120,7 +120,7 @@ function countdown(exam) {
 
 /*Calculate the time left (countdown), create tweet message and return*/
 function countdownTweet(diffTime, diffDuration, examName) {
-  var status = "";
+  let status = "";
 
   // Check whether exam is today, if not return
   if (diffTime < dayInMs && diffTime > -dayInMs) {
@@ -146,9 +146,7 @@ function countdownTweet(diffTime, diffDuration, examName) {
     }
   }
 
-  if (status != "") {
-    return status;
-  }
+  return status;
 }
 
 /* Returns the randomly selected quote to be tweeted */
