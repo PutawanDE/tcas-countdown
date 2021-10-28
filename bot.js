@@ -23,36 +23,28 @@ function hourOffset(hour) {
 
 //Set the date to which you want to count down to here!
 
-// GAT-PAT DATE 27-03-2021
+// GAT-PAT DATE 12-03-2022
 const gat = {
-  name: "GAT-PAT 64",
-  year: 2021,
+  name: "GAT-PAT 65",
+  year: 2022,
   month: 3,
-  day: 20,
+  day: 12,
 };
 
-// O-NET DATE 27-03-2021
-const onet = {
-  name: "O-NET 63",
-  year: 2021,
-  month: 3,
-  day: 27,
-};
-
-// Med กสพท. DATE 10-04-2021
+// Med กสพท. DATE 26-03-2021
 const med = {
-  name: "กสพท 64",
-  year: 2021,
-  month: 4,
-  day: 10,
+  name: "กสพท 65",
+  year: 2022,
+  month: 3,
+  day: 26,
 };
 
-// 9 Subjects DATE 3-04-2021
+// 9 Subjects DATE 19-03-2022
 const _9subjects = {
-  name: "9 วิชาสามัญ 64",
-  year: 2021,
-  month: 4,
-  day: 3,
+  name: "9 วิชาสามัญ 65",
+  year: 2022,
+  month: 3,
+  day: 19,
 };
 
 const quotes = [
@@ -86,11 +78,10 @@ T.post(
       // randomQuote(quotes) +
       // "\n" +
       countdown(gat) +
-      countdown(onet) +
       countdown(med) +
       countdown(_9subjects) +
-      "#dek64 " +
-      "#TCAS64",
+      "#dek65 " +
+      "#TCAS65",
   },
   function (err, data, response) {
     if (err) {
