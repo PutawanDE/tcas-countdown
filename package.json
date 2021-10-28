@@ -1,6 +1,6 @@
 {
   "name": "tcas-countdown",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Twitter Bot that tweets days untill Exams for TCAS",
   "main": "bot.js",
   "scripts": {
@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "moment": "^2.27.0",
     "twit": "^2.2.11"
   }

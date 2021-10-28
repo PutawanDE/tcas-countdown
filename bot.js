@@ -1,10 +1,8 @@
 /* Setting things up. */
 const config = require("./config.js");
 
-const express = require("express"),
-  app = express(),
-  Twit = require("twit"),
-  T = new Twit(config);
+const Twit = require("twit");
+const T = new Twit(config);
 
 // More setting things up - TIME
 const moment = require("moment");
@@ -74,7 +72,7 @@ T.post(
   "statuses/update",
   {
     status:
-      // "//Test\n" +
+      "//Test\n" +
       // randomQuote(quotes) +
       // "\n" +
       countdown(gat) +
