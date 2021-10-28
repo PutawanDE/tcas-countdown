@@ -72,7 +72,7 @@ T.post(
   "statuses/update",
   {
     status:
-      "//Test\n" +
+      // "//Test\n" +
       // randomQuote(quotes) +
       // "\n" +
       countdown(gat) +
