@@ -28,7 +28,7 @@ const gat = {
   name: "GAT-PAT 64",
   year: 2021,
   month: 3,
-  day: 20
+  day: 20,
 };
 
 // O-NET DATE 27-03-2021
@@ -44,7 +44,7 @@ const med = {
   name: "กสพท 64",
   year: 2021,
   month: 4,
-  day: 10
+  day: 10,
 };
 
 // 9 Subjects DATE 3-04-2021
@@ -52,7 +52,7 @@ const _9subjects = {
   name: "9 วิชาสามัญ 64",
   year: 2021,
   month: 4,
-  day: 3
+  day: 3,
 };
 
 const quotes = [
@@ -75,7 +75,7 @@ const quotes = [
   "หากคุณเชื่อมั่นว่าคุณสามารถทำได้ นั่นเท่ากับว่าคุณได้ทำสำเร็จไปครึ่งหนึ่งแล้ว",
   "ท้อได้ ถอยได้ แต่ต้องถอยออกมาเพื่อที่จะก้าวให้ไกลกว่าเดิม",
   "ตะโกนให้สุดเสียง ร้องไห้ให้พอ แต่อย่ายอมแพ้",
-  "มันดูเหมือนเป็นไปไม่ได้เสมอจนกระทั่งมันสำเร็จ"
+  "มันดูเหมือนเป็นไปไม่ได้เสมอจนกระทั่งมันสำเร็จ",
 ];
 
 T.post(
@@ -83,8 +83,8 @@ T.post(
   {
     status:
       // "//Test\n" +
-      randomQuote(quotes) +
-      "\n" +
+      // randomQuote(quotes) +
+      // "\n" +
       countdown(gat) +
       countdown(onet) +
       countdown(med) +
@@ -152,5 +152,5 @@ function countdownTweet(diffTime, diffDuration, examName) {
 /* Returns the randomly selected quote to be tweeted */
 function randomQuote(quotes) {
   let r = Math.floor(Math.random() * quotes.length);
-  return "\"" +  quotes[r] + "\"" + "\n";
+  return '"' + quotes[r] + '"' + "\n";
 }
