@@ -1,17 +1,17 @@
 {
   "name": "tcas-countdown",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Twitter Bot that tweets days untill Exams for TCAS",
   "main": "bot.js",
+  "type":"module",
   "scripts": {
-    "test": "test",
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "test": "node bot.test.js"
   },
   "author": "Tanadol Deachprapakorn",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "moment": "^2.29.4",
     "twit": "^2.2.11"
   }
 }

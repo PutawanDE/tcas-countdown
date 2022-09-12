@@ -1,145 +1,88 @@
 /* Setting things up. */
-const config = require("./config.js");
+import config from "./config.js";
 
-const Twit = require("twit");
+import Twit from "twit";
+
 const T = new Twit(config);
 
 // More setting things up - TIME
-const moment = require("moment");
-
-//Get current date and time
-const current = new Date();
 const dayInMs = 86400000;
 const hourInMs = 3600000;
 
-//Get current timestamp in Bangkok Time
-const now = current.getTime() + hourOffset(7);
-
-function hourOffset(hour) {
+const hourOffset = (hour) => {
   return hour * hourInMs;
-}
+};
 
 //Set the date to which you want to count down to here!
 
-// GAT-PAT DATE 12-03-2022
-const gat = {
-  name: "GAT-PAT 65",
+// TGAT-TPAT DATE 10-12-2022
+const TGAT_TPAT = {
+  name: "TGAT/TPAT2-5 66",
   year: 2022,
-  month: 3,
-  day: 12,
+  month: 12,
+  day: 10,
 };
 
-// Med กสพท. DATE 26-03-2021
+// Med กสพท. DATE 17-12-2022
 const med = {
-  name: "กสพท 65",
+  name: "TPAT1(กสพท) 66",
   year: 2022,
-  month: 3,
-  day: 26,
+  month: 12,
+  day: 17,
 };
 
-// 9 Subjects DATE 19-03-2022
-const _9subjects = {
-  name: "9 วิชาสามัญ 65",
-  year: 2022,
+// A-Level DATE 18-03-2023
+const A_levels = {
+  name: "A-Level 66",
+  year: 2023,
   month: 3,
-  day: 19,
+  day: 18,
 };
-
-const quotes = [
-  "ไม่เคยมีคำว่าสายเกินไปที่จะเป็นในสิ่งที่คุณอยากจะเป็น",
-  "ความสำเร็จของปีนี้ คือ สิ่งที่เป็นไปไม่ได้ในปีที่ผ่านมา",
-  "เส้นบางๆ ที่คั่นระหว่างความเป็นไปได้และความเป็นไปไม่ได้คือการตัดสินใจของเรา",
-  "การลงมือทำดีกว่าคำ พูดที่สวยหรู",
-  "ทำวันนี้ให้ดีที่สุด แล้วชีวิตคุณจะไม่ธรรมดา",
-  "ลืมอดีตของคุณไป ให้อภัยกับตัวเอง และเริ่มต้นใหม่อีกครั้ง",
-  "อย่าสูญสิ้นความสิ้นหวัง คุณไม่อาจรู้ได้ว่าพรุ่งนี้ จะเกิดอะไรขึ้นบ้าง",
-  "รู้ว่าเสี่ยง แต่คงต้องขอลอง",
-  "รู้ว่าเหนื่อย ถ้าอยากได้ของที่อยู่สูง ยังไงจะขอลองดูสักที",
-  "ไม่ต้องอ่านเยอะครับ แต่อ่านให้มีประสิทธิภาพ",
-  "per aspera ad astra",
-  "ไม่มีใครเข้มแข็งตลอดไปและไม่มีใครอ่อนแอตลอดกาล",
-  "ไม่มีใครสะดุดภูเขาล้ม มีแต่สะดุดก้อนหินล้ม",
-  "ตึกสูงระฟ้ามาจากก้อนอิฐ",
-  "เหนื่อยก็พัก ด้วยรักและห่วงใย",
-  "ไม่ว่าจะสูงแค่ไหนก็ไปถึง",
-  "หากคุณเชื่อมั่นว่าคุณสามารถทำได้ นั่นเท่ากับว่าคุณได้ทำสำเร็จไปครึ่งหนึ่งแล้ว",
-  "ท้อได้ ถอยได้ แต่ต้องถอยออกมาเพื่อที่จะก้าวให้ไกลกว่าเดิม",
-  "ตะโกนให้สุดเสียง ร้องไห้ให้พอ แต่อย่ายอมแพ้",
-  "มันดูเหมือนเป็นไปไม่ได้เสมอจนกระทั่งมันสำเร็จ",
-];
-
-T.post(
-  "statuses/update",
-  {
-    status:
-      // "//Test\n" +
-      // randomQuote(quotes) +
-      // "\n" +
-      countdown(gat) +
-      countdown(med) +
-      countdown(_9subjects) +
-      "#dek65 " +
-      "#TCAS65",
-  },
-  function (err, data, response) {
-    if (err) {
-      console.log("error!", err);
-    } else {
-      console.log("Success ", response);
-    }
-  }
-);
 
 /* Returns the countdown message to be tweeted */
-function countdown(exam) {
+export const countdown = (exam) => {
   //Create date, subtract 1 from month since js month starts from 0
   const date = new Date(
     Date.UTC(exam.year, exam.month - 1, exam.day, 0, 0, 0, 1)
   ).getTime();
 
+  //Get current timestamp in Bangkok Time
+  const now = new Date().getTime() + hourOffset(7);
+
   // Set Time to 9:00AM of the Exam day using hourOffset
   const diffTime = date + hourOffset(9) - now;
 
-  // Create duration
-  const diffDuration = moment.duration(diffTime, "milliseconds");
-
   // Calculate days left and create tweet message
-  return countdownTweet(diffTime, diffDuration, exam.name);
-}
-
-/*Calculate the time left (countdown), create tweet message and return*/
-function countdownTweet(diffTime, diffDuration, examName) {
   let status = "";
+  const days = Math.floor(diffTime / dayInMs);
 
-  // Check whether exam is today, if not return
-  if (diffTime < dayInMs && diffTime > -dayInMs) {
-    status += `โชคดีกับการสอบ ${examName} นะครับ #Fight\n`;
+  if (days === 0) {
+    status += `โชคดีกับการสอบ ${exam.name} นะครับ #Fight\n`;
     return status;
-  }
-
-  // Use for testing only
-  // if(diffTime < dayInMs && diffTime > -dayInMs) {
-  //   status += `TEST TWEET: ${diffTime} till 25-10-19 9:00AM UTC+7 `;
-  //   return status;
-  // }
-
-  // Calculate days left and return
-  if (diffTime > 0) {
-    if (diffDuration.asDays() > 1) {
-      // Days format
-      let days = Math.trunc(diffDuration.asDays());
-      if (days >= 1) {
-        status += `${days} วัน`;
-      }
-      status += ` จนถึงสอบ ${examName}!\n`;
-    }
+  } else if (days > 0) {
+    status += `${days} วัน จนถึงสอบ ${exam.name}!\n`;
   }
 
   return status;
-}
+};
 
-/* Returns the randomly selected quote to be tweeted */
-function randomQuote(quotes) {
-  let r = Math.floor(Math.random() * quotes.length);
-  return '"' + quotes[r] + '"' + "\n";
-}
+export const handler = () => {
+  T.post(
+    "statuses/update",
+    {
+      status:
+        countdown(TGAT_TPAT) +
+        countdown(med) +
+        countdown(A_levels) +
+        "#dek66 " +
+        "#TCAS66",
+    },
+    (err, data, response) => {
+      if (err) {
+        console.log("error!", err);
+      } else {
+        console.log("Success ", response);
+      }
+    }
+  );
+};
