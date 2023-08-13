@@ -3,15 +3,20 @@
   "version": "2.0.0",
   "description": "Twitter Bot that tweets days untill Exams for TCAS",
   "main": "bot.js",
-  "type":"module",
   "scripts": {
-    "start": "node bot.js",
-    "test": "node bot.test.js"
+    "prebuild": "if exist dist ( rmdir /s/q dist )",
+    "build": "esbuild src/bot.ts --minify --sourcemap --bundle --platform=node --target=es2020 --outfile=dist/bot.js",
+    "postbuild": "cd dist && zip -r bot.zip bot.js*"
   },
   "author": "Tanadol Deachprapakorn",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "twit": "^2.2.11"
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "@types/node": "^20.4.9",
+    "esbuild": "^0.19.1",
+    "typescript": "^5.1.6"
   }
 }
