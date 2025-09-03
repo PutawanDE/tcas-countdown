@@ -5,8 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "prebuild": "if exist dist ( rmdir /s/q dist )",
-    "build": "esbuild src/bot.ts --minify --sourcemap --bundle --platform=node --target=es2020 --outfile=dist/bot.js",
-    "postbuild": "cd dist && zip -r bot.zip bot.js*"
+    "build": "esbuild src/bot.ts --minify --sourcemap --bundle --platform=node --target=es2020 --outfile=dist/bot.js"
   },
   "author": "Tanadol Deachprapakorn",
   "license": "MIT",

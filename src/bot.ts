@@ -23,24 +23,24 @@ interface Exam {
 //Set the date to which you want to count down to here!
 
 const TGAT_TPAT: Exam = {
-  name: "TGAT/TPAT2-5 68",
-  year: 2024,
+  name: "TGAT/TPAT2-5 69",
+  year: 2025,
   month: 12,
-  day: 7,
+  day: 13,
 };
 
 const med: Exam = {
-  name: "TPAT1(กสพท) 68",
-  year: 2024,
-  month: 12,
+  name: "TPAT1(กสพท) 69",
+  year: 2026,
+  month: 2,
   day: 14,
 };
 
 const A_levels: Exam = {
-  name: "A-Level 68",
-  year: 2025,
+  name: "A-Level 69",
+  year: 2026,
   month: 3,
-  day: 8,
+  day: 14,
 };
 
 /* Returns the countdown message to be tweeted */
@@ -77,6 +77,13 @@ const buildStatus = () => {
 export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
   // Post new status
   const status = buildStatus();
+
+  if(!status) {
+    return {
+      statusCode: 200,
+      body: "No status to post",
+    };
+  }
 
   const authHeader = createAuthorizationHeader({}, "POST", `${BASE_URL}/tweets`);
 
