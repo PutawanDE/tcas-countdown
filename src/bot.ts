@@ -23,24 +23,24 @@ interface Exam {
 //Set the date to which you want to count down to here!
 
 const TGAT_TPAT: Exam = {
-  name: "TGAT/TPAT2-5 69",
-  year: 2025,
-  month: 12,
-  day: 13,
+  name: "TGAT/TPAT2-5 70",
+  year: 2027,
+  month: 1,
+  day: 30,
 };
 
 const med: Exam = {
-  name: "TPAT1(กสพท) 69",
-  year: 2026,
+  name: "TPAT1(กสพท) 70",
+  year: 2027,
   month: 2,
-  day: 14,
+  day: 13,
 };
 
 const A_levels: Exam = {
-  name: "A-Level 69",
-  year: 2026,
+  name: "A-Level 70",
+  year: 2027,
   month: 3,
-  day: 14,
+  day: 13,
 };
 
 /* Returns the countdown message to be tweeted */
