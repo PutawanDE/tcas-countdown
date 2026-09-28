@@ -3,7 +3,7 @@ import { Context, APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 
 import createAuthorizationHeader from "./auth.js";
 
-const BASE_URL = "https://api.twitter.com/2";
+const BASE_URL = "https://api.x.com/2";
 
 // More setting things up - TIME
 const dayInMs = 86400000;
@@ -12,13 +12,6 @@ const hourInMs = 3600000;
 const hourOffset = (hour: number) => {
   return hour * hourInMs;
 };
-
-interface Exam {
-  name: string;
-  year: number;
-  month: number;
-  day: number;
-}
 
 //Set the date to which you want to count down to here!
 
@@ -74,11 +67,11 @@ const buildStatus = () => {
   return countdown(TGAT_TPAT) + countdown(med) + countdown(A_levels);
 }
 
-export const handler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
+export const handler = async (): Promise<APIGatewayProxyResult> => {
   // Post new status
   const status = buildStatus();
 
-  if(!status) {
+  if (!status) {
     return {
       statusCode: 200,
       body: "No status to post",
@@ -87,11 +80,9 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
 
   const authHeader = createAuthorizationHeader({}, "POST", `${BASE_URL}/tweets`);
 
-  const body = { text: status, };
+  const body = { sd: status, };
 
   try {
-    // Why ignore? Because fetch is not defined in typescript
-    // @ts-ignore
     const response = await fetch(`${BASE_URL}/tweets`, {
       method: "POST",
       headers: {
@@ -101,22 +92,46 @@ export const handler = async (event: APIGatewayEvent, context: Context): Promise
       body: JSON.stringify(body),
     });
 
+    const result: XPostTweetsResponse = await response.json();
+
     if (!response.ok) {
-      throw new Error(response);
+      const errors = result.errors ?? [];
+
+      console.error("Failed to post a new status:", {
+        status: response.status,
+        statusText: response.statusText,
+        errors,
+      });
+
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({
+          errors,
+        }),
+      };
     }
 
-    const data = await response.json();
-    console.log("Successfully post a new status: ", JSON.stringify(data));
+    console.log(
+      "Successfully posted a new status:",
+      JSON.stringify(result.data)
+    );
 
     return {
       statusCode: response.status,
-      body: JSON.stringify(data),
+      body: JSON.stringify(result.data),
     };
-  } catch (error: any) {
-    console.error("Failed to post a new status: ", error);
+  } catch (error: unknown) {
+    console.error("Failed to post a new status:", error);
+
+    const message = error instanceof Error
+      ? error.message
+      : String(error);
+
     return {
-      statusCode: error.statusCode || 500,
-      body: JSON.stringify(error),
+      statusCode: 500,
+      body: JSON.stringify({
+        error: message,
+      }),
     };
   }
 };
