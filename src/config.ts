@@ -1,14 +1,22 @@
 import * as dotenv from "dotenv";
+
 dotenv.config();
 
-const consumer_key = process.env.CONSUMER_KEY;
-const consumer_secret = process.env.CONSUMER_SECRET;
-const access_token = process.env.ACCESS_TOKEN;
-const access_token_secret = process.env.ACCESS_TOKEN_SECRET;
+function requireEnv(name: string): string {
+  const value = process.env[name];
 
-export default {
-  consumer_key,
-  consumer_secret,
-  access_token,
-  access_token_secret,
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+}
+
+const config = {
+  consumer_key: requireEnv("CONSUMER_KEY"),
+  consumer_secret: requireEnv("CONSUMER_SECRET"),
+  access_token: requireEnv("ACCESS_TOKEN"),
+  access_token_secret: requireEnv("ACCESS_TOKEN_SECRET"),
 };
+
+export default config;
