@@ -1,6 +1,6 @@
 {
   "name": "tcas-countdown",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Twitter Bot that tweets days untill Exams for TCAS",
   "main": "bot.js",
   "scripts": {
