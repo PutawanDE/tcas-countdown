@@ -35,4 +35,4 @@ jobs:
           function-name: tcas-countdown
           code-artifacts-dir: dist
           handler: bot.handler
-          runtime: nodejs26.x
+          runtime: nodejs24.x
