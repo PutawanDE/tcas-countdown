@@ -80,7 +80,7 @@ export const handler = async (): Promise<APIGatewayProxyResult> => {
 
   const authHeader = createAuthorizationHeader({}, "POST", `${BASE_URL}/tweets`);
 
-  const body = { sd: status, };
+  const body = { text: status, };
 
   try {
     const response = await fetch(`${BASE_URL}/tweets`, {
